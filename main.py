@@ -89,15 +89,10 @@ class TransformeeFourrier:
             self.effacer_graphe_sinusoidal()
     
     def calcul_echantillonage_signal_sinusoidal(self):
-        frequence = 1
-        amplitude = 1
         try:
-            if (self.input_frequence.get().strip() != ""):
-                frequence = int(self.input_frequence.get())
-            if (self.input_amplitude.get().strip() != ""):
-                amplitude = int(self.input_amplitude.get())
+            frequence, amplitude = self.obtenir_frequence_amplitude()
             
-             # Échantillonnage du signal
+            # Échantillonnage du signal
             Te = 0.1  # Période d'échantillonnage en seconde
             Duree = 1  # Durée du signal en secondes
 
@@ -130,13 +125,8 @@ class TransformeeFourrier:
 
     
     def calcul_echantillonage_signal_continu(self):
-        frequence = 1
-        amplitude = 1
         try:
-            if (self.input_frequence.get().strip() != ""):
-                frequence = int(self.input_frequence.get())
-            if (self.input_amplitude.get().strip() != ""):
-                amplitude = int(self.input_amplitude.get())
+            frequence, amplitude = self.obtenir_frequence_amplitude()
             
             # Période du signal
             T = 1 / frequence
@@ -160,6 +150,20 @@ class TransformeeFourrier:
         except Exception as e:
             print("Une erreur c'est produite")
 
+    
+    def obtenir_frequence_amplitude(self):
+        frequence = 1
+        amplitude = 1
+        try:
+            if (self.input_frequence.get().strip() != ""):
+                frequence = int(self.input_frequence.get())
+            if (self.input_amplitude.get().strip() != ""):
+                amplitude = int(self.input_amplitude.get())
+        except:
+            pass
+
+        return frequence, amplitude
+    
     
     def calcul_signal(self, t, f = 1, A = 1):
         # Calcul du signal x(t) = A*sin(2*pi*f*t)
